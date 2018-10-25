@@ -11,5 +11,15 @@
 
 3：docker-compose ps 查看都运行成功，访问 http://127.0.0.1
 
+## 所包含功能
 
+1： laravel queue 
+
+2： supervisor 监控 queue:work
+
+3： cron 计划任务 laravel schedule
+
+4： redis 相关功能
+
+5： mysql 数据库相关 
 
