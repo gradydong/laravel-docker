@@ -1,0 +1,46 @@
+version: '3'
+services:
+
+    web:
+        image: "laravel-nginx:latest"
+        restart: unless-stopped
+        depends_on:
+            - app
+
+
+    app:
+        image: "laravel-php:latest"
+        restart: unless-stopped
+        environment:
+            ## Application Configuration ##
+            APP_ENV: ""
+            APP_DEBUG: "false"
+            APP_KEY: "base64:8wVC8Jv4Eio033ziKbUtD1pxUoMFeYyWzl8jaLJcrHg="
+            CACHE_DRIVER: "file"
+            ## Queue ##
+            QUEUE_CONNECTION: "database"
+            ## Database ##
+            DB_CONNECTION: "mysql"
+            DB_HOST: "mariadb"
+            DB_PORT: "3306"
+            DB_DATABASE: "laraveldocker"
+            DB_USERNAME: "root"
+            DB_PASSWORD: "secret"
+            REDIS_HOST: "redis"
+            REDIS_PORT: "6379"
+        depends_on:
+            - mariadb
+            - redis
+
+    mariadb:
+        image: "laravel-mariadb:latest"
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: "laraveldocker"
+            MYSQL_USER: "laravel"
+            MYSQL_PASSWORD: "laravel"
+            MYSQL_ROOT_PASSWORD: "secret"
+
+    redis:
+        image: "laravel-redis:latest"
+        restart: unless-stopped
