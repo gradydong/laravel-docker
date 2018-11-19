@@ -13,6 +13,7 @@ RUN set -xe \
     # install dependences
     && apk add --no-cache --virtual .build-deps \
         nodejs \
+        npm \
     && npm config set registry ${NPM_REGISTRY} \
     # install gulp for building the old front-end framework
     && npm install -g gulp-cli
