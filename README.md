@@ -11,6 +11,18 @@
 
 3：docker-compose ps 查看都运行成功，访问 http://127.0.0.1
 
+4：如果出现错误
+
+    Warning: require(/var/www/html/public/../vendor/autoload.php): failed to open stream: No such file or directory in /var/www/html/public/index.php on line 24
+    Fatal error: require(): Failed opening required '/var/www/html/public/../vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /var/www/html/public/index.php on line 24
+
+有两个办法来解决
+
+1：注释掉 docker-compose.override.yml 里面app 对应的  volumes   - ../laravel:/var/www/html 然后 重新执行 docker-compose up -d  适用于生产环境
+
+2: 安装PHP7 和composer ，进入laravel 目录 执行 composer install  适用于开发环境
+
+
 ## 所包含功能
 
 1： laravel queue 
