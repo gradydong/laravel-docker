@@ -20,6 +20,7 @@ RUN set -xe \
         zlib-dev \
         libpng-dev \
         freetype-dev \
+        libzip-dev \
         git \
     && apk add --no-cache --virtual .persistent-deps \
         libjpeg-turbo \
