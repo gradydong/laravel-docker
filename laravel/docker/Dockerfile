@@ -33,8 +33,9 @@ RUN set -xe \
     && docker-php-ext-configure gd \
         --with-freetype-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure zip \
         --without-libzip \
-    && docker-php-ext-install iconv mysqli pdo pdo_mysql zip gd \
+    && docker-php-ext-install mysqli pdo_mysql zip gd \
     # install composer and php packages
     && php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
     && php composer-setup.php \
