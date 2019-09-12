@@ -66,6 +66,6 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 # give write permission
 RUN sed -i 's/\r//g' ./crontab/laravel.crontab \
-    && crontab -u www-data ./crontab/schooin.crontab
+    && crontab -u www-data ./crontab/laravel.crontab
 
 CMD ["php-fpm"]
