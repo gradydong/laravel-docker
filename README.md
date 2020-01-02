@@ -1,6 +1,6 @@
 # laravel-docker
 
-这是用docker来搭建laravel运行环境的一个项目，安装docker的步骤请自行搜索
+这是用docker来搭建laravel运行环境的一个项目，安装docker请参考[docker官方文档](https://docs.docker.com/)
 
 
 ## 执行步骤
