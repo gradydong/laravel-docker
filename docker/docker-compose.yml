@@ -28,6 +28,7 @@ services:
             DB_PASSWORD: "secret"
             REDIS_HOST: "redis"
             REDIS_PORT: "6379"
+            REDIS_PASSWORD: "redispass"
         depends_on:
             - mariadb
             - redis

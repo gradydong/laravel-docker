@@ -1,8 +1,9 @@
-FROM php:fpm-alpine3.8
+FROM php:fpm-alpine3.9
 
 MAINTAINER gradydong <gradydong@126.com>
 LABEL Description="This image is used to start php server for Laravel." Vendor="gradydong" Version="1.0"
 
+ARG COMPOSER_REPOSITORY="https://mirrors.aliyun.com/composer/"
 
 WORKDIR /var/www/html
 
@@ -22,6 +23,10 @@ RUN set -xe \
         freetype-dev \
         libzip-dev \
         git \
+        autoconf \
+        make \
+        gcc \
+        g++ \
     && apk add --no-cache --virtual .persistent-deps \
         libjpeg-turbo \
         zlib \
@@ -35,13 +40,18 @@ RUN set -xe \
         --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure zip \
         --without-libzip \
-    && docker-php-ext-install mysqli pdo_mysql zip gd \
+    && docker-php-ext-configure bcmath --enable-bcmath \
+    && docker-php-ext-install mysqli pdo_mysql zip gd bcmath \
+    && pecl install -o -f redis \
+    && docker-php-ext-enable redis \
     # install composer and php packages
     && php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
-    && php composer.phar install --no-dev --no-scripts \
-    && rm composer.phar \
+    && mv composer.phar /usr/local/bin/composer \
+    && composer config repositories.packagist composer ${COMPOSER_REPOSITORY} \
+    && composer install --no-scripts \
+    && rm /usr/local/bin/composer \
     && rm -rf ~/.composer \
     # clean up
     && apk del .build-deps \
